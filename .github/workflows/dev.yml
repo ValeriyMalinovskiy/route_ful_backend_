@@ -24,5 +24,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - run: docker build -t route_ful_be_dev:githubuser .
-      - run: docker container inspect route_ful_be_dev || docker kill route_ful_be_dev
+      - run: chmod u+x container-killer.sh
+      - run: ./container-killer.sh route_ful_be_dev
       - run: docker run -p 3000:3000 -it route_ful_be_dev:githubuser
