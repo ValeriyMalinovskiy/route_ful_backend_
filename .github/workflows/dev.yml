@@ -23,6 +23,6 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - uses: actions/checkout@v3
-      - run: docker build -t route_ful_fe_dev:docker_user .
+      - run: docker build -t route_ful_fe_dev:githubuser .
       - run: docker kill route_ful_fe_dev
-      - run: docker run -p 3000:3000 -it route_ful_fe_dev:docker_user
+      - run: docker run -p 3000:3000 -it route_ful_fe_dev:githubuser
