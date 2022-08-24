@@ -26,4 +26,4 @@ jobs:
       - run: docker build -t route_ful_be_dev:githubuser .
       - run: chmod u+x container-killer.sh
       - run: ./container-killer.sh route_ful_be_dev
-      - run: docker run -p 3000:3000 -it route_ful_be_dev:githubuser
+      - run: docker run -p 3000:3000 --restart=always -it route_ful_be_dev:githubuser
