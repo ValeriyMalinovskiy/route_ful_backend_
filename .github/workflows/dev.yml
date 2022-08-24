@@ -23,7 +23,7 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - uses: actions/checkout@v3
-      - run: docker build -t route_ful_be_dev:githubuser .
+      - run: docker build -t ${{ secrets.CONTAINER_NAME }}:${{ secrets.CONTAINER_USER }} .
       - run: chmod u+x container-killer.sh
-      - run: ./container-killer.sh route_ful_be_dev
-      - run: docker run -p 3000:3000 --restart=always --name route_ful_be_dev -d route_ful_be_dev:githubuser
+      - run: ./container-killer.sh ${{ secrets.CONTAINER_NAME }}
+      - run: docker run -p ${{ secrets.HOST_PORT }}:3000 --restart=always --name ${{ secrets.CONTAINER_NAME }} -d ${{ secrets.CONTAINER_NAME }}:${{ secrets.CONTAINER_USER }}
