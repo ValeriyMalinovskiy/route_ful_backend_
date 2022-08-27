@@ -11,12 +11,14 @@ datasource db {
 }
 
 model User {
-  id         String     @id
+  id         Int        @id @default(autoincrement())
+  email      String     @unique
   joinDate   DateTime   @default(now())
   updatedAt  DateTime   @updatedAt
-  userName   String     @db.VarChar(255)
+  userName   String
   userPhoto  String?
-  followers  Follower[]
+  following  User[]     @relation("UserFollows")
+  followedBy User[]     @relation("UserFollows")
   activities Activity[]
 }
 
@@ -25,10 +27,10 @@ model Activity {
   private Boolean      @default(false)
   typeId  Int          @unique
   type    ActivityType @relation(fields: [typeId], references: [id])
-  userId  String
+  userId  Int
   user    User         @relation(fields: [userId], references: [id])
   trackId Int          @unique
-  track   Track        @relation(fields: [trackId], references: [id])
+  Track   Track?
 }
 
 model ActivityType {
@@ -38,13 +40,7 @@ model ActivityType {
 }
 
 model Track {
-  id         Int       @id @default(autoincrement())
-  geoData    String    @unique
-  activity   Activity?
-}
-
-model Follower {
-  id     Int    @id @default(autoincrement())
-  user   User   @relation(fields: [userId], references: [id])
-  userId String
+  id       Int       @id @default(autoincrement())
+  geoData  String
+  activity Activity? @relation(fields: [id], references: [trackId])
 }
