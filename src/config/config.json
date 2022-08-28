@@ -1,5 +1,5 @@
 {
-    "database": {
+    "db": {
         "host": "localserver",
         "port": 3306,
         "name": "name",

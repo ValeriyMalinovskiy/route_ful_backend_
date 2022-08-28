@@ -1,13 +1,14 @@
 import { Injectable, Logger } from '@nestjs/common';
 import * as fs from 'fs';
 import * as path from 'path';
+import { IConfig } from 'src/config/config.interface';
 
 @Injectable()
 export class ConfigService {
   private _logger = new Logger(ConfigService.name);
-  private _config: Record<string, string | any> = {};
+  private _config: Partial<IConfig> = {};
 
-  get config(): any {
+  get config(): Partial<IConfig> {
     return this._config;
   }
 
