@@ -25,6 +25,13 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - uses: actions/checkout@v3
+      - name: create-json
+        id: create-json
+        uses: jsdaniell/create-json@1.1.2
+        with:
+          name: "config.json"
+          json: ${{ secrets.CREDENTIALS_JSON }}
+          dir: 'src/'
       - run: |
           docker build -t ${{ secrets.CONTAINER_NAME }}:${{ secrets.CONTAINER_USER }} .
           chmod u+x container-killer.sh
