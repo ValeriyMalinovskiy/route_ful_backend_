@@ -8,6 +8,8 @@ RUN npm install
 
 RUN npm run build
 
+COPY prisma ./prisma/
+
 COPY . .
 
 RUN ls -a
@@ -16,4 +18,4 @@ RUN pwd
 
 EXPOSE 3000
 
-CMD [ "node", "dist/main.js" ]
+CMD [ "npm", "run", "start:migrate:prod" ]
