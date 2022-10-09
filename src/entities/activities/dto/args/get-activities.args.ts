@@ -1,7 +1,7 @@
 import { ArgsType, Field } from '@nestjs/graphql';
 
 @ArgsType()
-export class GetUserArgs {
+export class GetActivitiesArgs {
   @Field()
-  id: string;
+  userId: string;
 }

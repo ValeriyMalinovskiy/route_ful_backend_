@@ -3,11 +3,11 @@ import { Field, InputType } from '@nestjs/graphql';
 @InputType()
 export class UpdateUserInput {
   @Field()
-  id: string;
-
-  @Field()
   email: string;
 
-  @Field()
+  @Field({ nullable: false })
   userName: string;
+
+  @Field()
+  userPhoto?: string;
 }

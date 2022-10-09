@@ -1,22 +1,27 @@
 import { Injectable } from '@nestjs/common';
-import { CreateUserInput } from './dto/input/create-user.input';
-import { User } from '../../models/user.model';
 import { v4 as uuidv4 } from 'uuid';
-import { GetUserArgs } from './dto/args/get-user.args';
 import { PrismaClient } from '@prisma/client';
+import { Activity } from '../../models/activity.model';
+import { CreateActivityInput } from './dto/input/create-activity.input';
+import { GetActivityArgs } from './dto/args/get-activity.args';
+import { GetActivitiesArgs } from './dto/args/get-activities.args';
 
 @Injectable()
-export class UsersService {
+export class ActivitiesService {
   private prisma = new PrismaClient();
 
-  public async createUser(createUserData: CreateUserInput): Promise<User> {
+  public async createActivity(
+    createActivityData: CreateActivityInput,
+  ): Promise<Activity> {
     try {
       const id = uuidv4();
-      await this.prisma.user.create({ data: { ...createUserData, id } });
+      await this.prisma.activity.create({
+        data: { ...createActivityData, id },
+      });
 
-      return this.getUser({ id });
+      return this.getOneById({ id });
     } catch (err) {
-      console.log('Error on creating User | ', err);
+      console.log('Error on creating Activity | ', err);
     }
   }
 
@@ -30,11 +35,20 @@ export class UsersService {
   //     return this.users.find((user) => user.userId === updateUserData.userId);
   //   }
 
-  public async getUser(getUserArgs: GetUserArgs): Promise<User> {
-    const user = await this.prisma.user.findUnique({
-      where: { id: getUserArgs.id },
+  public async getOneById(getActivityArgs: GetActivityArgs): Promise<Activity> {
+    const activity = await this.prisma.activity.findUnique({
+      where: { id: getActivityArgs.id },
     });
-    return user;
+    return activity;
+  }
+
+  public async findAll(
+    getActivitiesArgs: GetActivitiesArgs,
+  ): Promise<Activity[]> {
+    const activities = await this.prisma.activity.findMany({
+      where: { userId: getActivitiesArgs.userId },
+    });
+    return activities;
   }
 
   //   public getUsers(getUsersArgs: GetUsersArgs): User[] {

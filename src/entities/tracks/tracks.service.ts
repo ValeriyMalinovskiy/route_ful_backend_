@@ -1,20 +1,20 @@
 import { Injectable } from '@nestjs/common';
-import { CreateUserInput } from './dto/input/create-user.input';
-import { User } from '../../models/user.model';
+import { CreateTrackInput } from './dto/input/create-track.input';
 import { v4 as uuidv4 } from 'uuid';
-import { GetUserArgs } from './dto/args/get-user.args';
+import { GetTrackArgs } from './dto/args/get-track.args';
 import { PrismaClient } from '@prisma/client';
+import { Track } from '../../models/track.model';
 
 @Injectable()
-export class UsersService {
+export class TracksService {
   private prisma = new PrismaClient();
 
-  public async createUser(createUserData: CreateUserInput): Promise<User> {
+  public async createTrack(createTrackData: CreateTrackInput): Promise<Track> {
     try {
       const id = uuidv4();
-      await this.prisma.user.create({ data: { ...createUserData, id } });
+      await this.prisma.track.create({ data: { ...createTrackData, id } });
 
-      return this.getUser({ id });
+      return this.getTrack({ id });
     } catch (err) {
       console.log('Error on creating User | ', err);
     }
@@ -30,11 +30,11 @@ export class UsersService {
   //     return this.users.find((user) => user.userId === updateUserData.userId);
   //   }
 
-  public async getUser(getUserArgs: GetUserArgs): Promise<User> {
-    const user = await this.prisma.user.findUnique({
-      where: { id: getUserArgs.id },
+  public async getTrack(getTrackArgs: GetTrackArgs): Promise<Track> {
+    const track = await this.prisma.track.findUnique({
+      where: { id: getTrackArgs.id },
     });
-    return user;
+    return track;
   }
 
   //   public getUsers(getUsersArgs: GetUsersArgs): User[] {

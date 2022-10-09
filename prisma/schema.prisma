@@ -25,16 +25,16 @@ model User {
 model Activity {
   id      String          @id 
   private Boolean      @default(false)
-  typeId  String          @unique
+  typeId  Int          @unique
   type    ActivityType @relation(fields: [typeId], references: [id])
   userId  String
   user    User         @relation(fields: [userId], references: [id])
   trackId String          @unique
-  Track   Track?
+  track   Track?
 }
 
 model ActivityType {
-  id       String       @id
+  id       Int       @id @unique
   name     String
   activity Activity?
 }
