@@ -13,25 +13,10 @@ export class TracksResolver {
     return this.tracksService.getTrack(getTrackArgs);
   }
 
-  //   @Query(() => [User], { name: 'users', nullable: 'items' })
-  //   getUsers(@Args() getUsersArgs: GetUsersArgs): User[] {
-  //     return this.usersService.getUsers(getUsersArgs);
-  //   }
-
   @Mutation(() => Track)
   createTrack(
     @Args('createTrackData') createTrackData: CreateTrackInput,
   ): Promise<Track> {
     return this.tracksService.createTrack(createTrackData);
   }
-
-  //   @Mutation(() => User)
-  //   updateUser(@Args('updateUserData') updateUserData: UpdateUserInput): User {
-  //     return this.usersService.updateUser(updateUserData);
-  //   }
-
-  //   @Mutation(() => User)
-  //   deleteUser(@Args('deleteUserData') deleteUserData: DeleteUserInput): User {
-  //     return this.usersService.deleteUser(deleteUserData);
-  //   }
 }
