@@ -10,9 +10,8 @@ export class ActivityTypesService {
   public async getActivityType(
     getActivityTypeArgs: GetActivityTypeArgs,
   ): Promise<ActivityType> {
-    const activityType = await this.prisma.activityType.findUnique({
+    return await this.prisma.activityType.findUnique({
       where: { id: getActivityTypeArgs.id },
     });
-    return activityType;
   }
 }

@@ -15,25 +15,13 @@ export class ActivitiesService {
   ): Promise<Activity> {
     try {
       const id = uuidv4();
-      await this.prisma.activity.create({
+      return await this.prisma.activity.create({
         data: { ...createActivityData, id },
       });
-
-      return this.getOneById({ id });
     } catch (err) {
       console.log('Error on creating Activity | ', err);
     }
   }
-
-  //   public updateUser(updateUserData: UpdateUserInput): User {
-  //     const user = this.users.find(
-  //       (user) => user.userId === updateUserData.userId,
-  //     );
-
-  //     Object.assign(user, updateUserData);
-
-  //     return this.users.find((user) => user.userId === updateUserData.userId);
-  //   }
 
   public async getOneById(getActivityArgs: GetActivityArgs): Promise<Activity> {
     const activity = await this.prisma.activity.findUnique({
@@ -50,20 +38,4 @@ export class ActivitiesService {
     });
     return activities;
   }
-
-  //   public getUsers(getUsersArgs: GetUsersArgs): User[] {
-  //     return getUsersArgs.userIds.map((userId) => this.getUser({ userId }));
-  //   }
-
-  //   public deleteUser(deleteUserData: DeleteUserInput): User {
-  //     const userIndex = this.users.findIndex(
-  //       (user) => user.userId === deleteUserData.userId,
-  //     );
-
-  //     const user = this.users[userIndex];
-
-  //     this.users.splice(userIndex);
-
-  //     return user;
-  //   }
 }

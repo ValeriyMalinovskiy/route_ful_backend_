@@ -12,23 +12,13 @@ export class TracksService {
   public async createTrack(createTrackData: CreateTrackInput): Promise<Track> {
     try {
       const id = uuidv4();
-      await this.prisma.track.create({ data: { ...createTrackData, id } });
-
-      return this.getTrack({ id });
+      return await this.prisma.track.create({
+        data: { ...createTrackData, id },
+      });
     } catch (err) {
       console.log('Error on creating User | ', err);
     }
   }
-
-  //   public updateUser(updateUserData: UpdateUserInput): User {
-  //     const user = this.users.find(
-  //       (user) => user.userId === updateUserData.userId,
-  //     );
-
-  //     Object.assign(user, updateUserData);
-
-  //     return this.users.find((user) => user.userId === updateUserData.userId);
-  //   }
 
   public async getTrack(getTrackArgs: GetTrackArgs): Promise<Track> {
     const track = await this.prisma.track.findUnique({
@@ -36,20 +26,4 @@ export class TracksService {
     });
     return track;
   }
-
-  //   public getUsers(getUsersArgs: GetUsersArgs): User[] {
-  //     return getUsersArgs.userIds.map((userId) => this.getUser({ userId }));
-  //   }
-
-  //   public deleteUser(deleteUserData: DeleteUserInput): User {
-  //     const userIndex = this.users.findIndex(
-  //       (user) => user.userId === deleteUserData.userId,
-  //     );
-
-  //     const user = this.users[userIndex];
-
-  //     this.users.splice(userIndex);
-
-  //     return user;
-  //   }
 }

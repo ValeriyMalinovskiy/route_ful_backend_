@@ -12,23 +12,11 @@ export class UsersService {
   public async createUser(createUserData: CreateUserInput): Promise<User> {
     try {
       const id = uuidv4();
-      await this.prisma.user.create({ data: { ...createUserData, id } });
-
-      return this.getUser({ id });
+      return await this.prisma.user.create({ data: { ...createUserData, id } });
     } catch (err) {
       console.log('Error on creating User | ', err);
     }
   }
-
-  //   public updateUser(updateUserData: UpdateUserInput): User {
-  //     const user = this.users.find(
-  //       (user) => user.userId === updateUserData.userId,
-  //     );
-
-  //     Object.assign(user, updateUserData);
-
-  //     return this.users.find((user) => user.userId === updateUserData.userId);
-  //   }
 
   public async getUser(getUserArgs: GetUserArgs): Promise<User> {
     const user = await this.prisma.user.findUnique({
@@ -36,20 +24,4 @@ export class UsersService {
     });
     return user;
   }
-
-  //   public getUsers(getUsersArgs: GetUsersArgs): User[] {
-  //     return getUsersArgs.userIds.map((userId) => this.getUser({ userId }));
-  //   }
-
-  //   public deleteUser(deleteUserData: DeleteUserInput): User {
-  //     const userIndex = this.users.findIndex(
-  //       (user) => user.userId === deleteUserData.userId,
-  //     );
-
-  //     const user = this.users[userIndex];
-
-  //     this.users.splice(userIndex);
-
-  //     return user;
-  //   }
 }

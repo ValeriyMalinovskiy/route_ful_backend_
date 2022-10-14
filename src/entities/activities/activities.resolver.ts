@@ -6,9 +6,7 @@ import { CreateActivityInput } from './dto/input/create-activity.input';
 
 @Resolver(() => Activity)
 export class ActivitiesResolver {
-  constructor(
-    private readonly activitiesService: ActivitiesService, // private readonly tracksService: TracksService,
-  ) {}
+  constructor(private readonly activitiesService: ActivitiesService) {}
 
   @Query(() => Activity, { name: 'activity', nullable: true })
   async getActivity(
@@ -16,12 +14,6 @@ export class ActivitiesResolver {
   ): Promise<Activity> {
     return this.activitiesService.getOneById(getActivityArgs);
   }
-
-  // @ResolveField('track')
-  // async getTrack(@Parent() track: Track) {
-  //   const args: GetTrackArgs = { id: track.id };
-  //   return this.tracksService.getTrack(args);
-  // }
 
   @Mutation(() => Activity)
   createActivity(
