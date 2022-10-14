@@ -11,7 +11,7 @@ datasource db {
 }
 
 model User {
-  id         Int        @id @default(autoincrement())
+  id         String        @id
   email      String     @unique
   joinDate   DateTime   @default(now())
   updatedAt  DateTime   @updatedAt
@@ -23,24 +23,24 @@ model User {
 }
 
 model Activity {
-  id      Int          @id @default(autoincrement())
+  id      String          @id 
   private Boolean      @default(false)
   typeId  Int          @unique
   type    ActivityType @relation(fields: [typeId], references: [id])
-  userId  Int
+  userId  String
   user    User         @relation(fields: [userId], references: [id])
-  trackId Int          @unique
-  Track   Track?
+  trackId String          @unique
+  track   Track?
 }
 
 model ActivityType {
-  id       Int       @id @default(autoincrement())
+  id       Int       @id @unique
   name     String
   activity Activity?
 }
 
 model Track {
-  id       Int       @id @default(autoincrement())
+  id       String       @id
   geoData  String
   activity Activity? @relation(fields: [id], references: [trackId])
 }
